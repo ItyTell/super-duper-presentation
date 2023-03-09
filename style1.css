@@ -1,0 +1,18 @@
+
+
+.canvas_1_box{
+    width: 1546;
+    height: 1000;
+}
+.canvas{
+    border: 1px solid grey;
+    max-height: 40em;
+}
+.canvas_button, .range{
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+}
+
+.canvas_3{
+    border: none;
+}

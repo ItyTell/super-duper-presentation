@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <title>Presentation</title>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="style1.css">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+
+<body>
+    
+
+    <!-- Project Start -->
+    <div class="container-fluid pt-5 pb-3" id="portfolio">
+        <div class="container">
+            <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Voronoi diagram and delone triangulation with moving points</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_1" class="canvas"></canvas>
+                </div>
+                <div>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_1_clear" >Clear points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_1_rand">Add points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_1_voronoi">Voronoi</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_1_delone">Delone</a>
+                    <div>
+                        <input type="range" class="range" id="canvas_1_rad" name="radius of the points" min="1" max="10" value="3">
+                        <label for="canvas_1_rad">radius</label>
+                    </div>
+                    <div>
+                        <input type="range" class="range" id="canvas_1_speed" name="speed of points" min="1" max="10" step="any">
+                        <label for="speed of points">speed</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Voronoi diagram and delone triangulation with static points</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_2" class="canvas"></canvas>
+                </div>
+                <div>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_2_clear">Clear points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_2_rand">Add points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_2_voronoi">Voronoi</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_2_delone">Delone</a>
+                    <div>
+                        <input type="range" class="range" id="canvas_2_rad" name="radius of the points" min="1" max="10">
+                        <label for="canvas_2_rad">radius</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Sweeping line algorithm animation</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_4" class="canvas"></canvas>
+                </div>
+                <div>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_4_clear">Clear points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_4_rand">Add points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_4_voronoi" >animation</a>
+                    <div>
+                        <input type="range" class="range" id="canvas_4_rad" name="radius of the points" min="1" max="10">
+                        <label for="canvas_4_rad">radius</label>
+                    </div>
+                    <div>
+                        <input type="range" class="range" id="canvas_4_anim_speed" name="radius of the points" min="1" max="10" step="any">
+                        <label for="canvas_4_anim_speed">speed</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Sweeping line demo</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_5" class="canvas"></canvas>
+                    <div>
+                        <input type="range" class="range" id="canvas_5_rad" name="radius of the points" min="1" max="10" value="3">
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Project End -->
+
+    <script src="js/matter/matter.js"></script>
+
+    <script src="canvases.js"> </script>
+    <script src="Voronoi.js"></script>
+    <script src="Delone.js"></script>
+    <script src="geom_classes.js"></script>
+    <script src="aditional_classes.js"></script>
+    <script src="drew.js"></script>
+    <script src="animation_voronoi.js"></script>
+    <script src="vrn_demo.js"></script>
+
+</body>
