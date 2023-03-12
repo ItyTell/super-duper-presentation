@@ -41,10 +41,17 @@ var vor_anim;
 var tri, cash;
 var anim_length;
 
+var r = 0;
+var incr = 0.5;
+var cells;
+var edges;
+const tau = 2 * Math.PI;
+
 var canvas_basic = new Canvas("canvas_basic"),
     canvas_anim = new Canvas("canvas_anim"), 
     canvas_demo_2 = new Canvas("canvas_demo_2");
-var canvases = [canvas_basic, canvas_anim, canvas_demo_2];
+    canvas_demo_1 = new Canvas("canvas_demo_1");
+var canvases = [canvas_basic, canvas_anim, canvas_demo_1, canvas_demo_2];
 var anim_cooldown_1, anime_on = false, anim_cooldown_2;
 
 
@@ -148,25 +155,112 @@ function arcs_move(event){
     canvas_demo_2.drew_points();
 }
 
+function start_drew(canvas){
+    canvas.clear();
+    r = 0;
+    incr = 0.5;
+
+	let vrn = new Voronoi();
+    let diagram = vrn.compute(canvas.points, {xl: 0, xr:canvas.cnv.width, yt: 0, yb: canvas.cnv.height});
+    cells = diagram.cells;
+    edges = diagram.edges;
+	for (let i=0; i<cells.length; i++) {
+		let cell = cells[i];
+		if (cell) {
+			let halfedges = cell.halfedges;
+			let nHalfedges = halfedges.length;
+			let rMax = 0;
+			for (let j=0; j<nHalfedges; j++) {
+				let vertex = halfedges[j].getEndpoint();
+				let dx = vertex.x - cell.site.x,
+					dy = vertex.y - cell.site.y,
+					dv = Math.sqrt(dx*dx + dy*dy);
+				if (dv > rMax) {rMax = dv;}						
+			}
+			cell.rMax = rMax;
+		}
+    }
+	requestAnimationFrame(draw);
+}
+
+function draw() {
+    canvas = canvas_demo_1;
+	r += incr;
+	let finished = true;
+    let ctx = canvas.ctx;
+	for (let i=0; i < cells.length; i++) {				
+		let cell = cells[i];
+		if (cell && r <= cell.rMax) { 
+			finished = false;
+			let halfedges = cell.halfedges;
+			let nHalfedges = halfedges.length;					
+			if (nHalfedges > 2) {
+				ctx.beginPath(); // draw a cell:
+				let vertex = halfedges[0].getStartpoint();
+				ctx.moveTo(vertex.x, vertex.y);
+				for (let j=0; j<nHalfedges; j++) {					
+					vertex = halfedges[j].getEndpoint();
+					ctx.lineTo(vertex.x,vertex.y);	
+				}
+				//ctx.stroke();					
+				ctx.save();
+				ctx.clip();
+				ctx.fillStyle = "hsl(" + (Math.floor(i*100))%360 + ", 80%, 50%)";
+				// draw a growing circle around the site (that is clipped by the previous drawn cell):
+				drawCircle(ctx, cell.site.x,cell.site.y,r);
+				ctx.restore();
+			}
+			drawSite(ctx, cell.site.x,cell.site.y);					
+		}								
+	}
+	ctx.beginPath();
+	let	iEdge = edges.length,
+		edge, v;
+	while (iEdge--) {
+		edge = edges[iEdge];
+		v = edge.va;
+		ctx.moveTo(v.x,v.y);
+		v = edge.vb;
+		ctx.lineTo(v.x,v.y);
+		}
+	ctx.stroke();
+	if (finished) { stopDraw();}
+	else { requestFrame = requestAnimationFrame(draw); }
+};
+
+
+
+
+
+
+
 function rand_points(canvas){for (let i = 0; i < 10; i++){new_point({x: Math.random() * canvas.cnv.width, y: Math.random() * canvas.cnv.height}, canvas)}}
+
+document.getElementById("canvas_demo_1_clear").onclick = function(){clear_points(canvas_demo_1);}
+document.getElementById("canvas_demo_1_rand").onclick = function(){rand_points(canvas_demo_1)}
+document.getElementById("canvas_demo_1_drew").onclick = function(){start_drew(canvas_demo_1)}
+document.getElementById("canvas_demo_1").onclick = function(){new_point_canvas_static(event, canvas_demo_1);}
+
+document.getElementById("canvas_demo_1_rad").oninput = function(){canvas_demo_1.rad = this.valueAsNumber; redrew_points(canvas_demo_1);}
+
 
 document.getElementById("canvas_basic_clear").onclick = function(){clear_points(canvas_basic);}
 document.getElementById("canvas_basic_rand").onclick = function(){rand_points(canvas_basic)}
-document.getElementById("canvas_basic_voronoi").onclick = function(){clear_edges(canvas_basic); voronoi(canvas_basic)}
-document.getElementById("canvas_basic_delone").onclick = function(){clear_edges(canvas_basic); delone(canvas_basic)}
+document.getElementById("canvas_basic_voronoi").onclick = function(){voronoi(canvas_basic)}
+document.getElementById("canvas_basic_delone").onclick = function(){delone(canvas_basic)}
 document.getElementById("canvas_basic").onclick = function(){new_point_canvas_static(event, canvas_basic);}
 
-document.getElementById("canvas_anim_rad").oninput = function(){canvas_2.rad = this.valueAsNumber; redrew_points(canvas_2);}
+document.getElementById("canvas_basic_rad").oninput = function(){canvas_basic.rad = this.valueAsNumber; redrew_points(canvas_basic);}
 
 document.getElementById("canvas_anim_clear").onclick = function(){clear_points(canvas_anim);}
 document.getElementById("canvas_anim_rand").onclick = function(){rand_points(canvas_anim)}
 document.getElementById("canvas_anim_voronoi").onclick = function(){start_voronoi();}
 document.getElementById("canvas_anim").onclick = function(){new_point_canvas_static(event, canvas_anim);}
 
-document.getElementById("canvas_anim_rad").oninput = function(){canvas_4.rad = this.valueAsNumber; redrew_points(canvas_4);}
+document.getElementById("canvas_anim_rad").oninput = function(){canvas_anim.rad = this.valueAsNumber; redrew_points(canvas_anim);}
 document.getElementById("canvas_4_anim_speed").oninput = function(){anim_cooldown_2 = (15 - this.valueAsNumber) / 100;}
 
 canvas_demo_2.cnv.addEventListener('mousemove', (event) => {arcs_move(event);});
 document.getElementById("canvas_demo_2").onclick = function(){new_point_canvas_static(event, canvas_demo_2)}
-document.getElementById("canvas_demo_2_rad").oninput = function(){canvas_5.rad = this.valueAsNumber; redrew_points(canvas_demo_2);}
+document.getElementById("canvas_demo_2_rad").oninput = function(){canvas_demo_2.rad = this.valueAsNumber; redrew_points(canvas_demo_2);}
 

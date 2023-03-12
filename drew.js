@@ -64,8 +64,28 @@ function drew_triangle(ctx, triangle, color = "#0bceaf"){
 }
 
 function drew_circle(ctx, circle, color){
-    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
     ctx.beginPath();
     ctx.arc(circle.center.x, circle.center.y, circle.rad, 0, Math.PI * 2)
+
+
     ctx.stroke();
+    //drew_point(ctx, circle.center, 5,  color="brown")
 }
+
+
+
+function drawSite(ctx, x,y) {
+	if (x != null && y != null) {
+		ctx.beginPath();
+		ctx.fillStyle = "black";
+		ctx.arc(x, y, 3, 0, tau);
+		ctx.fill();
+	}
+};
+
+function drawCircle(ctx, x,y,r) {
+	ctx.beginPath();
+	ctx.arc(x, y, r, 0, tau);
+	ctx.fill();
+};			

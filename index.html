@@ -18,6 +18,24 @@
     <div class="container-fluid pt-5 pb-3" id="portfolio">
         <div class="container">
             <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Voronoi demo</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_demo_1" class="canvas"></canvas>
+                </div>
+                <div>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_demo_1_clear">Clear points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_demo_1_rand">Add points</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_demo_1_drew">drew</a>
+                    <div>
+                        <input type="range" class="range" id="canvas_demo_1_rad" name="radius of the points" min="1" max="10">
+                        <label for="canvas_demo_1_rad">radius</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center justify-content-center py-5">
                 <h3 class="mb-4">Voronoi diagram and delone triangulation with static points</h3>
             </div>
             <div class="row align-items-center">
@@ -83,5 +101,9 @@
     <script src="drew.js"></script>
     <script src="animation_voronoi.js"></script>
     <script src="vrn_demo.js"></script>
+
+    
+    <script src="vrn.js"></script>
+
 
 </body>
