@@ -47,6 +47,7 @@
                     <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_basic_rand">Add points</a>
                     <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_basic_voronoi">Voronoi</a>
                     <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_basic_delone">Delone</a>
+                    <a class="btn btn-outline-primary d-lg-block canvas_button" id="canvas_basic_drew">drew</a>
                     <div>
                         <input type="range" class="range" id="canvas_basic_rad" name="radius of the points" min="1" max="10">
                         <label for="canvas_basic_rad">radius</label>
@@ -84,7 +85,16 @@
                         <input type="range" class="range" id="canvas_demo_2_rad" name="radius of the points" min="1" max="10" value="3">
                     </div>
                 </div>
-                <div>
+            </div>
+            <div class="row align-items-center justify-content-center py-5">
+                <h3 class="mb-4">Voronoi cell demo</h3>
+            </div>
+            <div class="row align-items-center">
+                <div class="canvas_1_box">
+                    <canvas id="canvas_demo_3" class="canvas"></canvas>
+                    <div>
+                        <input type="range" class="range" id="canvas_demo_3_rad" name="radius of the points" min="1" max="10" value="3">
+                    </div>
                 </div>
             </div>
         </div>
